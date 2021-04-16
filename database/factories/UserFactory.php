@@ -27,7 +27,7 @@ class UserFactory extends Factory
             'lastName' => $this->faker->lastName,
             'userName' => $this->faker->userName,
             'password' => Hash::make('123456'),
-            'canSignIn' => false,
+            'canSignIn' => true,
             'darkMode' => false,
         ];
     }

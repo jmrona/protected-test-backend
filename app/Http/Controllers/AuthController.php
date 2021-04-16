@@ -44,7 +44,7 @@ class AuthController extends Controller
 
     public function login( Request $request ){
         $validator = Validator::make($request->all(),[
-            'userName' => ' required',
+            'userName' => 'required',
             'password' => 'required'
         ]);
 
@@ -59,16 +59,16 @@ class AuthController extends Controller
 
         if(!Auth::attempt($credentials)){
             return response()->json([
-                'status' => 500,
+                'status' => 400,
                 'msg' => 'Credencential doesn\'t exist'
             ]);
         }
 
         $user = User::where('userName',$request->userName)->first();
 
-        if($user->canSignIn === 0){
+        if($user->canSignIn === 0 || $user->canSignIn === false){
             return response()->json([
-                'status' => 500,
+                'status' => 400,
                 'ok' => false,
                 'msg' => 'Access denied',
                 'as' => $user->canSighIn

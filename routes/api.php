@@ -17,16 +17,16 @@ use App\Http\Controllers\AuthController;
 |
 */
 
+/* Public routes */
 // Auth
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);
 
-
-
+/* Private routes */
 Route::group(['middleware' => ['auth:sanctum']], function() {
+    //Auth
     Route::get('/logout', [AuthController::class, 'logout']);
     Route::get('/getUser', [AuthController::class, 'getUser']);
-    Route::post('/darkMode', [UserController::class, 'darkModeToogle']);
 
     // Users
     Route::get('/home', [UserController::class, 'index']);
@@ -34,4 +34,5 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
     Route::put('/home/{id}', [UserController::class, 'update']);
     Route::delete('/home/{id}', [UserController::class, 'destroy']);
     Route::get('/home/search/{userName}', [UserController::class, 'search']);
+    Route::post('/darkMode', [UserController::class, 'darkModeToogle']);
 });
